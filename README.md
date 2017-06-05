@@ -1,6 +1,6 @@
 # ink-iOS
 
-An iOS wrapper, written in Objective C, for the JavaScript port of Inkle's [Ink](https://github.com/inkle/ink), a scripting language for writing interactive narrative.
+An iOS wrapper, written in Objective C, for the [JavaScript port](https://github.com/y-lohse/inkjs) of Inkle's [Ink](https://github.com/inkle/ink), a scripting language for writing interactive narrative.
 
 Inkle offers Unity integration, but no direct way to use the Ink runtime in a native iOS app. Yannick Lohse has [ported the runtime to JavaScript](https://github.com/y-lohse/inkjs). This wrapper provides an Objective C class named `InkStory` that drives the JavaScript runtime via iOS's `JSContext`.
 
@@ -31,7 +31,7 @@ The main loop:
 ```
 while ([inkStory canContinue] == YES)
 {
-    NSString *paragraphText = [self.inkStory continueStory];
+    NSString *paragraphText = [inkStory continueStory];
 
     // Append paragraphText to your text view
 }
@@ -41,7 +41,7 @@ for (NSDictionary *choice in [inkStory currentChoices])
     NSString *choiceTitle = [choice objectForKey:@"text"];
     NSInteger choiceIndex = [choice objectForKey:@"index"];
 
-    // Create UIButtons or whatever for the available options
+    // Create UIButtons, or whatever, for the available options
     // Stash the choiceIndex in its tag field or similar 
 }
 ```
