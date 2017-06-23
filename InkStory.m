@@ -53,6 +53,16 @@
     return self;
 }
 
+- (NSString *)toJson
+{
+    return [[self evaluateScriptInContext:@"story.ToJson();"] toString];
+}
+
+- (void)loadJson:(NSString *)json
+{
+    [self evaluateScriptInContext:[NSString stringWithFormat:@"story.LoadJson(\"%@\");", json]];
+}
+
 - (BOOL)canContinue
 {
     return [[self evaluateScriptInContext:@"story.canContinue;"] toBool];
@@ -63,6 +73,21 @@
     return [[self evaluateScriptInContext:@"story.Continue();"] toString];
 }
 
+- (NSString *)currentText
+{
+    return [[self evaluateScriptInContext:@"story.currentText;"] toString];
+}
+
+- (BOOL)hasError
+{
+    return [[self evaluateScriptInContext:@"story.hasError;"] toBool];
+}
+
+- (NSArray *)currentErrors
+{
+    return [[self evaluateScriptInContext:@"story.currentErrors;"] toArray];
+}
+
 - (NSArray *)currentChoices
 {
     return [[self evaluateScriptInContext:@"story.currentChoices;"] toArray];
@@ -71,6 +96,26 @@
 - (void)chooseChoiceIndex:(NSInteger)index
 {
     [self evaluateScriptInContext:[NSString stringWithFormat:@"story.ChooseChoiceIndex(%ld);", (long)index]];
+}
+
+- (NSArray *)currentTags
+{
+    return [[self evaluateScriptInContext:@"story.currentTags;"] toArray];
+}
+
+- (NSArray *)globalTags
+{
+    return [[self evaluateScriptInContext:@"story.globalTags;"] toArray];
+}
+
+- (NSArray *)tagsForContentAtPath:(NSString *)path
+{
+    return [[self evaluateScriptInContext:[NSString stringWithFormat:@"story.TagsForContentAtPath(\"%@\");", path]] toArray];
+}
+
+- (void)choosePathString:(NSString *)path
+{
+    [self evaluateScriptInContext:[NSString stringWithFormat:@"story.ChoosePathString(\"%@\");", path]];
 }
 
 - (JSValue *)evaluateScriptInContext:(NSString *)jsToRun
