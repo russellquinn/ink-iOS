@@ -39,7 +39,7 @@ while ([inkStory canContinue] == YES)
 for (NSDictionary *choice in [inkStory currentChoices])
 {
     NSString *choiceTitle = [choice objectForKey:@"text"];
-    NSInteger choiceIndex = [choice objectForKey:@"index"];
+    NSInteger choiceIndex = [[choice objectForKey:@"index"] integerValue];
 
     // Create UIButtons, or whatever, for the available options
     // Stash the choiceIndex in its tag field or similar 
