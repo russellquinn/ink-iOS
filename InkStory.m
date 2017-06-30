@@ -61,6 +61,14 @@
 
 - (void)loadJson:(NSString *)json
 {
+    // Double escape JSON input to pass as a parameter inside evaluateScriptInContext
+    json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+    json = [json stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    json = [json stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+    json = [json stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+    json = [json stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
+    json = [json stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"];
+    
     [self evaluateScriptInContext:[NSString stringWithFormat:@"story.state.LoadJson(\"%@\");", json]];
 }
 
