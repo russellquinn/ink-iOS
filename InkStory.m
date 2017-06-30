@@ -55,12 +55,13 @@
 
 - (NSString *)toJson
 {
-    return [[self evaluateScriptInContext:@"story.ToJson();"] toString];
+    // There's a typo in inkjs, should be ToJson -- will fix when inkjs is fixed.
+    return [[self evaluateScriptInContext:@"story.state.toJson();"] toString];
 }
 
 - (void)loadJson:(NSString *)json
 {
-    [self evaluateScriptInContext:[NSString stringWithFormat:@"story.LoadJson(\"%@\");", json]];
+    [self evaluateScriptInContext:[NSString stringWithFormat:@"story.state.LoadJson(\"%@\");", json]];
 }
 
 - (BOOL)canContinue
